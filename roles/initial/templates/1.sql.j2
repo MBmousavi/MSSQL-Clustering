@@ -1,0 +1,13 @@
+CREATE LOGIN dbm_login WITH PASSWORD = "MyStr0ngPa$w0rd";
+CREATE USER dbm_user FOR LOGIN dbm_login;
+GO
+CREATE MASTER KEY ENCRYPTION BY PASSWORD = "MyStr0ngPa$w0rd";
+GO
+CREATE CERTIFICATE dbm_certificate   
+    AUTHORIZATION dbm_user
+    FROM FILE = '/usr/certificate/dbm_certificate.cer'
+    WITH PRIVATE KEY (
+    FILE = '/usr/certificate/dbm_certificate.pvk',
+    DECRYPTION BY PASSWORD = "MyStr0ngPa$w0rd"
+);
+GO

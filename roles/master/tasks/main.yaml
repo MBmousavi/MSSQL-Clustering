@@ -1,0 +1,9 @@
+- name: copy file3 to master
+  template:
+    src: 3.sql.j2
+    dest: /3.j2
+
+- name: copy file 3.sql to master
+  shell: docker cp /3.sql mssql:/
+- name: run 3.sql on master
+  shell: docker exec mssql /opt/mssql-tools/bin/sqlcmd -U sa -S 127.0.0.1,{{ port }} -P {{ password }} -i /3.sql

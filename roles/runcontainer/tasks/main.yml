@@ -1,0 +1,13 @@
+- name: copy docker-compose to nodes
+  template:
+    src: docker-compose.yaml.j2
+    dest: /opt/mssql/docker-compose.yaml
+
+- name: Delete old container
+  shell: docker-compose -f /opt/mssql/docker-compose.yaml down -v
+
+- name: Creating path for MSSQL volume
+  shell: mkdir -p {{ volume }} && cd {{ volume }} && rm -rf * && chmod 777 {{ volume }}
+
+- name: Runing MSSQL Container ...
+  shell: docker-compose -f /opt/mssql/docker-compose.yaml up -d

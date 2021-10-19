@@ -1,0 +1,9 @@
+- name: copy file4 to slaves
+  template:
+    src: 4.sql.j2
+    dest: /4.sql
+
+- name: copy file 4.sql to con
+  shell: docker cp /4.sql mssql:/
+- name: run 4.sql on con
+  shell: docker exec mssql /opt/mssql-tools/bin/sqlcmd -U sa -S 127.0.0.1,{{ port }} -P {{ password }} -i /4.sql

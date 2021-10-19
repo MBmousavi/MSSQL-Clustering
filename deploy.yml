@@ -1,0 +1,27 @@
+- hosts:
+  - mssql
+  gather_facts: False
+  roles:
+  - preinstall 
+  - runcontainer
+  - initial
+- hosts:
+  - master
+  gather_facts: False
+  roles:
+  - master
+- hosts:
+  - slaves
+  gather_facts: False
+  roles:
+  - slaves
+- hosts:
+  - master
+  gather_facts: False
+  roles:
+  - final
+- hosts:
+  - mssql
+  gather_facts: False
+  roles:
+  - cleanup
