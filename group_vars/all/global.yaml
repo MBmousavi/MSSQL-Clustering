@@ -1,5 +1,5 @@
-image: harbor.resaa.net/hub/mssql-custome:2019-CU12-ubuntu-20.04
-password: 'vei3aec4foo}C~iopiet'
+image: my-mssql-custome:2019-CU12-ubuntu-20.04
+password: 'XXXXXXXXXXX'
 master: 172.16.95.46
 slave1: 172.16.95.47
 slave2: 172.16.95.48
