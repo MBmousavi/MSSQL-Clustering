@@ -11,3 +11,14 @@ services:
            - MSSQL_TCP_PORT={{ port }}
          volumes:
            - {{ volume }}:/var/opt/mssql
+       sidecar:
+         container_name: prometheus-mssql-exporter
+         image: awaragi/prometheus-mssql-exporter
+         restart: always
+         environment:
+           - SERVER={{ inventory_hostname }}:{{ port }}
+           - USERNAME=SA
+           - PASSWORD={{ password }}
+           - DEBUG=app 
+         ports:
+           - 4000:4000
