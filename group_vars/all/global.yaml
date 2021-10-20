@@ -1,12 +1,10 @@
-image: smbmousavi/2019-cu12-ubuntu-20.04-new-custome:latest
+image: harbor.resaa.net/hub/mssql-custome:2019-CU12-ubuntu-20.04
 password: 'vei3aec4foo}C~iopiet'
-master: 172.16.95.42
-slave1: 172.16.95.41
-slave2: 172.16.95.43
-port: 3342
-endpoint_port: 5023
+master: 172.16.95.46
+slave1: 172.16.95.47
+slave2: 172.16.95.48
+port: 1433
+endpoint_port: 5022
 service_name: cluster_db
 container_name: mssql
-volume: /opt/mssql/data-new
-
-### Ports and password are defined in Dockerfile in build process. Change it first in Dockerfile. ###
+volume: /opt/mssql/data-new/

@@ -8,3 +8,7 @@ CREATE ENDPOINT [Hadr_endpoint]
 ALTER ENDPOINT [Hadr_endpoint] STATE = STARTED;
 GRANT CONNECT ON ENDPOINT::[Hadr_endpoint] TO [dbm_login];
 GO
+ALTER EVENT SESSION  AlwaysOn_health ON SERVER WITH (STARTUP_STATE=ON);
+GO
+
+

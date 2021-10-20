@@ -1,25 +1,25 @@
 CREATE AVAILABILITY GROUP [AG1]
         WITH (CLUSTER_TYPE = NONE)
         FOR REPLICA ON
-        N'Node1'
+        N'node3'
             WITH (
-            ENDPOINT_URL = N'tcp://{{ master }}:{{ endpoint_port }}',
+            ENDPOINT_URL = N'tcp://172.16.95.46:{{ endpoint_port }}',
             AVAILABILITY_MODE = SYNCHRONOUS_COMMIT,
                 SEEDING_MODE = AUTOMATIC,
                 FAILOVER_MODE = MANUAL,
             SECONDARY_ROLE (ALLOW_CONNECTIONS = ALL)
                 ),
-        N'Node2'
+        N'node4'
             WITH (
-            ENDPOINT_URL = N'tcp://{{ slave1 }}:{{ endpoint_port }}',
+            ENDPOINT_URL = N'tcp://172.16.95.47:{{ endpoint_port }}',
             AVAILABILITY_MODE = SYNCHRONOUS_COMMIT,
                 SEEDING_MODE = AUTOMATIC,
                 FAILOVER_MODE = MANUAL,
             SECONDARY_ROLE (ALLOW_CONNECTIONS = ALL)
                 ),
-        N'Node3'
+        N'node5'
             WITH (
-            ENDPOINT_URL = N'tcp://{{ slave2 }}:{{ endpoint_port }}',
+            ENDPOINT_URL = N'tcp://172.16.95.48:{{ endpoint_port }}',
             AVAILABILITY_MODE = SYNCHRONOUS_COMMIT,
                 SEEDING_MODE = AUTOMATIC,
                 FAILOVER_MODE = MANUAL,

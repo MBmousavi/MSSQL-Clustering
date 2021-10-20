@@ -1,9 +1,7 @@
 - name: copy file5 to master
   template:
     src: 5.sql.j2
-    dest: /5.sql
+    dest: "{{ volume }}5.sql"
 
-- name: copy file 5.sql to con
-  shell: docker cp /5.sql mssql:/
 - name: run 5.sql on con
-  shell: docker exec mssql /opt/mssql-tools/bin/sqlcmd -U sa -S 127.0.0.1,{{ port }} -P {{ password }} -i /5.sql
+  shell: docker exec mssql /opt/mssql-tools/bin/sqlcmd -U sa -S {{ inventory_hostname }},{{ port }} -P {{ password }} -i /var/opt/mssql/5.sql

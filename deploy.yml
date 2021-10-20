@@ -20,8 +20,3 @@
   gather_facts: False
   roles:
   - final
-- hosts:
-  - mssql
-  gather_facts: False
-  roles:
-  - cleanup

@@ -1,28 +1,26 @@
 - name: Initializing MSSQL Cluster ...
   shell: docker exec mssql /opt/mssql/bin/mssql-conf set hadr.hadrenabled 1
+- name: Initializing MSSQL Cluster ...
+  shell: docker exec mssql /opt/mssql/bin/mssql-conf set sqlagent.enabled true
 
 - name: Restarting MSSQL containers
   shell: docker restart mssql
 
-- name: sleep 4 mins for mssql to start ...
-  shell: for i in {1..60}:; do echo $i ; sleep 4 ; done
-
 - name: copy file1 to nodes
   template:
     src: 1.sql.j2
-    dest: /1.sql
+    dest: "{{ volume }}1.sql"
 
 - name: copy file2 to nodes
   template:
     src: 2.sql.j2
-    dest: /2.sql
+    dest: "{{ volume }}2.sql"
 
-- name: copy file 1.sql to con
-  shell: docker cp /1.sql mssql:/
-- name: run 1.sql on con
-  shell: docker exec mssql /opt/mssql-tools/bin/sqlcmd -U sa -S 127.0.0.1,{{ port }} -P {{ password }} -i /1.sql
+- name: sleep for 15 sec to boot the mssql ...
+  shell: sleep 15
 
-- name: copy file 2.sql to con
-  shell: docker cp /2.sql mssql:/
-- name: run 2.sql on con
-  shell: docker exec mssql /opt/mssql-tools/bin/sqlcmd -U sa -S 127.0.0.1,{{ port }} -P {{ password }} -i /2.sql
+- name: run 1.sql on nodes
+  shell: docker exec mssql /opt/mssql-tools/bin/sqlcmd -U sa -S {{ inventory_hostname }},{{ port }} -P {{ password }} -i /var/opt/mssql/1.sql 
+
+- name: run 2.sql on nodes
+  shell: docker exec mssql /opt/mssql-tools/bin/sqlcmd -U sa -S {{ inventory_hostname }},{{ port }} -P {{ password }} -i /var/opt/mssql/2.sql

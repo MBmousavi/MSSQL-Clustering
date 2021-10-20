@@ -5,16 +5,9 @@ services:
          container_name: {{ container_name }}
          network_mode: "host"
          restart: always
-         volumes:
-             - {{ volume }}:/var/opt/mssql
-       sidecar:
-         container_name: prometheus-mssql-exporter
-         image: awaragi/prometheus-mssql-exporter
-         restart: always
          environment:
-             - SERVER={{ container_name }}
-             - USERNAME=SA 
-             - PASSWORD={{ password }}
-             - DEBUG=app 
-         ports:
-             - 4000:4000
+           - SA_PASSWORD={{ password }}
+           - ACCEPT_EULA='Y'
+           - MSSQL_TCP_PORT={{ port }}
+         volumes:
+           - {{ volume }}:/var/opt/mssql
